@@ -1,0 +1,29 @@
+POST http://localhost:5000/users/add 
+Content-Type: application/json
+
+{
+    "username":"Priyanka"
+}
+
+###
+http://localhost:5000/users
+
+
+
+###
+POST http://localhost:5000/posts/add 
+Content-Type: application/json
+
+{
+    "username":"Meenakshi",
+    "heading": "How to query MongoDB with like",
+    "content": "I want to query something with SQL's like query:",
+    "tags": ["sql","mongo-db","sql-like"]
+}
+
+
+###
+http://localhost:5000/posts
+
+
+
