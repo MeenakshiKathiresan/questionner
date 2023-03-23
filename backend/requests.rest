@@ -15,15 +15,41 @@ POST http://localhost:5000/posts/add
 Content-Type: application/json
 
 {
-    "username":"Meenakshi",
-    "heading": "How to query MongoDB with like",
+    "username":"640528e8581c197843d2dfdb",
+    "heading": "How to qsuery MongoDB with like",
     "content": "I want to query something with SQL's like query:",
     "tags": ["sql","mongo-db","sql-like"]
+}
+
+###
+POST http://localhost:5000/posts/add 
+Content-Type: application/json
+
+{
+    "username":"640528e8581c197843d2dfdb",
+    "heading": "How to search by text in Java on Mongo db",
+    "content": "am using QueryBuilder at the moment, but it doesn't support that kind of query format.Any idea?",
+    "tags": ["sql"]
 }
 
 
 ###
 http://localhost:5000/posts
 
+###
+GET  http://localhost:5000/posts/64052d022b27aab1f0006f87 
 
+###
+DELETE http://localhost:5000/posts/64052dbf5feea039bcdea3b6
+
+###
+POST  http://localhost:5000/posts/update/64052d022b27aab1f0006f87 
+Content-Type: application/json
+
+{
+    "username":"Meenakshi",
+    "heading": "How to query MongoDB with like in SQL",
+    "content": "I want to query something with SQL's like query:",
+    "tags": ["sql","mongo-db","sql-like"]
+}
 

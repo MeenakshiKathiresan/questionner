@@ -42,7 +42,6 @@ router.route('/:id').delete((req,res) => {
 router.route('/update/:id').post((req, res) =>{
     Post.findById(req.params.id)
     .then(post => {
-        post.username = req.body.username;
         post.heading = req.body.heading;
         post.content = req.body.content;
         post.tags = req.body.tags;

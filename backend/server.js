@@ -27,7 +27,7 @@ const postsRouter = require('./routes/posts')
 const usersRouter = require('./routes/users')
 
 
-app.use('/posts', postsRouter)
+app.use('/post', postsRouter)
 app.use('/users', usersRouter)
 
 app.listen(port, () => {

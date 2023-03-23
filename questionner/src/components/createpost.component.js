@@ -1,17 +1,16 @@
 import React, { Component } from "react";
+import axios from 'axios';
 
 export default class CreatePost extends Component {
   constructor(props) {
     super(props);
 
-    this.OnUsernameEntry = this.OnUsernameEntry.bind(this);
     this.OnContentEntry = this.OnContentEntry.bind(this);
     this.OnHeadingEntry = this.OnHeadingEntry.bind(this);
     this.OnSubmit = this.OnSubmit.bind(this);
     this.OnTagsEntry = this.OnTagsEntry.bind(this);
 
     this.state = {
-      username: "",
       heading: "",
       content: "",
       tags: [],
@@ -26,13 +25,6 @@ export default class CreatePost extends Component {
       username: "us1",
     });
   }
-
-  OnUsernameEntry(e) {
-    this.setState({
-      username: e.target.value,
-    });
-  }
-
   OnHeadingEntry(e) {
     this.setState({
       heading: e.target.value,
@@ -56,14 +48,16 @@ export default class CreatePost extends Component {
     e.preventDefault();
 
     const post = {
-      username: this.state.username,
       heading: this.state.heading,
       content: this.state.content,
       tags: this.state.tags,
     };
 
     console.log(post);
-    window.location = "/";
+    // window.location = "/";
+    
+    axios.post('http://localhost:5000/post/add', post)
+    .then(res => console.log(res.data));
   }
 
   render() {
@@ -95,6 +89,7 @@ export default class CreatePost extends Component {
                 className="form-control"
                 id="exampleFormControlTextarea1"
                 rows="6"
+                onChange={this.OnContentEntry}
               ></textarea>
             </div>
             <br />
