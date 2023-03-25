@@ -4,9 +4,23 @@ const userSchema = new Schema({
     username:{
         type: String,
         required: true,
-        unique: true,
-        minlength: 6
+        unique: false
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    }, 
+    dp: {
+        type: String
+    },
+    _id: {
+        type: String,
+        required: true
     }
+},
+{
+    timestamps:true
 })
 
 const User = mongoose.model('User', userSchema)

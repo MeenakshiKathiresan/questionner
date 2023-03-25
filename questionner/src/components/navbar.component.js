@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+import Login from "./login.component";
+
 export default class Navbar extends Component {
   render() {
     return (
@@ -44,6 +46,7 @@ export default class Navbar extends Component {
               </li>
             </ul>
           </form>
+          <Login/>
         </div>
       </nav>
     );

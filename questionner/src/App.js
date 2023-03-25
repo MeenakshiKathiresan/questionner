@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import React, { Component } from "react";
 
 import Navbar from "./components/navbar.component";
-import PostList from "./components/postlist.component";
+import Home from "./pages/Home.component";
 import EditPost from "./components/editpost.component";
 import ViewPost from "./components/viewpost.component";
 import CreatePost from "./components/createpost.component";
@@ -15,11 +15,10 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" Component={PostList} />
+        <Route path="/" Component={Home} />
         <Route path="/create" Component={CreatePost} />
         <Route path="/edit/:id" Component={EditPost} />
         <Route path="/:id" Component={ViewPost} />
-        <Route path="/login" Component={Login} />
       </Routes>
     </Router>
   );

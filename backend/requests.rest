@@ -11,12 +11,12 @@ http://localhost:5000/users
 
 
 ###
-POST http://localhost:5000/posts/add 
+POST http://localhost:5000/post/add 
 Content-Type: application/json
 
 {
     "username":"640528e8581c197843d2dfdb",
-    "heading": "How to qsuery MongoDB with like",
+    "heading": "How to ry MongoDB with like",
     "content": "I want to query something with SQL's like query:",
     "tags": ["sql","mongo-db","sql-like"]
 }
