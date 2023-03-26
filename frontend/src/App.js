@@ -18,7 +18,7 @@ function App() {
         <Route path="/" Component={Home} />
         <Route path="/create" Component={CreatePost} />
         <Route path="/edit/:id" Component={EditPost} />
-        <Route path="/:id" Component={ViewPost} />
+        <Route path="/detail/:id" Component={ViewPost} />
       </Routes>
     </Router>
   );
