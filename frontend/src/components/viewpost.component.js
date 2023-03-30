@@ -24,14 +24,15 @@ export default class ViewPost extends Component{
 
     render(){
         return (
-        <div>
-            
+        <div className="Default-Margin">
              <br/>
             <h3>{this.state.post.heading}</h3>
             
             {this.state.post.content}<br/>
             
             {this.state.post.tags} 
+
+            <>Margaret asked on 3/30/2023 </>
         </div>)
     }
 }

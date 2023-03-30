@@ -25,6 +25,7 @@ export default class CreatePost extends Component {
       username: "us1",
     });
   }
+  
   OnHeadingEntry(e) {
     this.setState({
       heading: e.target.value,

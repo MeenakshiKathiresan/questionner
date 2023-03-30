@@ -1,9 +1,9 @@
-
-const passport = require('./passport.js')
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const session = require('express-session')
+const passport = require('./passport.js')
+
 
 require('dotenv').config();
 
@@ -32,10 +32,12 @@ const corsOptions ={
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
-app.use(cors(corsOptions));
-app.use(express.json());
+
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(express.urlencoded({extended:true}))
 
 const postsRouter = require('./routes/posts')
 const usersRouter = require('./routes/users')

@@ -7,13 +7,17 @@ export default class Post extends Component{
     }
 
     render(){
-        return (<div>
-            <br/>
-            <h3>{this.state.post.heading}</h3>
+        return (<div className="Default-Margin Post-Box p-3">
+         
+            <h4>{this.state.post.heading}</h4>
+            
+            <>Margaret asked on 3/30/2023 </><br/> <br/>
+            
             
             {this.state.post.content}<br/>
             
-            {this.state.post.tags}
+            {this.state.post.tags} <br/> 
+            <br/>
         </div>)
     }
 }
