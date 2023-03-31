@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import axios from "axios";
+
+import { login, getUser } from "../api-services/profileService";
 
 export default class CreatePost extends Component {
   constructor(props) {
@@ -14,18 +16,25 @@ export default class CreatePost extends Component {
       heading: "",
       content: "",
       tags: [],
-      users: [],
+      username:"",
     };
   }
 
   componentDidMount() {
-    console.log("mounted");
-    this.setState({
-      users: ["us1"],
-      username: "us1",
+    
+    getUser((userData) => {
+      if (userData == null){
+        login()
+      }else{
+        this.setState({username:userData._id});
+      }
+      
+
     });
+    
+
   }
-  
+
   OnHeadingEntry(e) {
     this.setState({
       heading: e.target.value,
@@ -52,13 +61,15 @@ export default class CreatePost extends Component {
       heading: this.state.heading,
       content: this.state.content,
       tags: this.state.tags,
+      username: this.state.username
     };
 
     console.log(post);
     // window.location = "/";
-    
-    axios.post('http://localhost:5000/post/add', post)
-    .then(res => console.log(res.data));
+
+    axios
+      .post("http://localhost:5000/post/add", post)
+      .then((res) => console.log(res.data));
   }
 
   render() {
