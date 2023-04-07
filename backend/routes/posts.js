@@ -3,20 +3,20 @@ let Post = require('../models/post.model');
 
 router.route('/').get(
     (req, res) => {
-        Post.find()
+        Post.find().populate("userID")
         .then(posts => res.json(posts))
         .catch(err => res.status(400).json("Error: "+ err));
     }
 )
 
 router.route('/add').post((req,res) => {
-    const username = req.body.username;
+    const userID = req.body.userID;
     const heading = req.body.heading;
     const content = req.body.content;
     const tags = req.body.tags;
 
     const newPost = new Post({
-        username,
+        userID,
         heading,
         content, 
         tags

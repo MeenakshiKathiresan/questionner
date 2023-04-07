@@ -32,6 +32,15 @@ export default class ViewPost extends Component{
             
             {this.state.post.tags} 
 
+            <br/>
+            username
+            {this.state.post.username}
+            <br/>
+            {this.state.post.email}
+            <br/>
+
+            {console.log("post", this.state.post)}
+
             <>Margaret asked on 3/30/2023 </>
         </div>)
     }

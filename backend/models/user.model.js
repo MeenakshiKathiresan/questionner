@@ -14,7 +14,7 @@ const userSchema = new Schema({
     dp: {
         type: String
     },
-    _id: {
+    gmailID: {
         type: String,
         required: true
     }

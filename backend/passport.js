@@ -15,7 +15,7 @@ passport.use(
         
     },
     async (_accessToken, _refreshToken, profile, done) => {
-        const user = await User.findById(profile.id);
+        const user = await User.findOne({gmailID: profile.id});
         if (user){
             return done(null, user);
         }
@@ -24,7 +24,7 @@ passport.use(
                 username: profile.displayName,
                 email: profile.emails[0].value,
                 dp: profile.photos[0].value,
-                _id: profile.id
+                gmailID: profile.id
             });
             return done(null, newUser);
         }
@@ -35,11 +35,11 @@ passport.use(
 )
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user.gmailID);
 })
 
 passport.deserializeUser(async (id, done)=>{
-    const user = await User.findById(id)
+    const user = await User.findOne({gmailID: id})
     done(null, user)
 })
 

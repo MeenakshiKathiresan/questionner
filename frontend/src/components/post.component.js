@@ -7,16 +7,19 @@ export default class Post extends Component{
     }
 
     render(){
+        
         return (<div className="Default-Margin Post-Box p-3">
          
             <h4>{this.state.post.heading}</h4>
-            
-            <>Margaret asked on 3/30/2023 </><br/> <br/>
-            
+            created by  
+            <> {this.state.post.username} </>
+            at {this.state.post.createdAt} <br/>
             
             {this.state.post.content}<br/>
             
             {this.state.post.tags} <br/> 
+
+            {console.log(this.state.post.email)}
             <br/>
         </div>)
     }

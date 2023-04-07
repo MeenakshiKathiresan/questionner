@@ -16,7 +16,7 @@ export default class CreatePost extends Component {
       heading: "",
       content: "",
       tags: [],
-      username:"",
+      userID:"",
     };
   }
 
@@ -26,7 +26,8 @@ export default class CreatePost extends Component {
       if (userData == null){
         login()
       }else{
-        this.setState({username:userData._id});
+        console.log("getting user data in create", userData)
+        this.setState({userID:userData._id});
       }
       
 
@@ -61,7 +62,7 @@ export default class CreatePost extends Component {
       heading: this.state.heading,
       content: this.state.content,
       tags: this.state.tags,
-      username: this.state.username
+      userID: this.state.userID
     };
 
     console.log(post);
