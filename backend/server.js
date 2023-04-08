@@ -42,11 +42,12 @@ app.use(express.urlencoded({extended:true}))
 const postsRouter = require('./routes/posts')
 const usersRouter = require('./routes/users')
 const authRouter = require('./routes/auth')
-
+const commentRouter = require('./routes/comments')
 
 app.use('/post', postsRouter)
 app.use('/users', usersRouter)
 app.use('/auth', authRouter)
+app.use('/comments', commentRouter)
 
 app.listen(port, () => {
     console.log(`Running: ${port}`);

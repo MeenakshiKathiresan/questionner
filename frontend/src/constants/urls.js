@@ -8,7 +8,12 @@ const URLS = {
 
     //Post
     postAdd: "/post/add",
-    postViewAll: "/post"
+    postViewAll: "/post",
+
+    //comments
+    comments: "/comments",
+    commentAdd: "/comments/add"
+    
 }
 
 export {URLS}

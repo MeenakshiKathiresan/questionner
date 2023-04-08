@@ -3,20 +3,20 @@ let Post = require('../models/post.model');
 
 router.route('/').get(
     (req, res) => {
-        Post.find().populate("userID")
+        Post.find().populate('user')
         .then(posts => res.json(posts))
         .catch(err => res.status(400).json("Error: "+ err));
     }
 )
 
 router.route('/add').post((req,res) => {
-    const userID = req.body.userID;
+    const user = req.body.user;
     const heading = req.body.heading;
     const content = req.body.content;
     const tags = req.body.tags;
 
     const newPost = new Post({
-        userID,
+        user,
         heading,
         content, 
         tags
@@ -27,9 +27,13 @@ router.route('/add').post((req,res) => {
     .catch(err => res.status(400).json('Error: '+ err));
 })
 
-router.route('/:id').get((req,res) => {
-    Post.findById(req.params.id)
-    .then(post => res.json(post))
+router.route('/:id').get(async (req,res) => {
+    Post.findById(req.params.id).populate('user')
+    .then(post => 
+      {  res.json(post);
+     console.log(post);}
+    
+    )
     .catch(err => res.status(400).json('Error' + err));
 })
 
