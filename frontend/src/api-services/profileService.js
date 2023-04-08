@@ -22,9 +22,8 @@ const logout = () => {
 
 const getUser = async (setUser) => {
   if (user) {
-    return user;
+    setUser(user)
   } else {
-    console.log("making req to get user")
     const targetUrl = URLS.baseUrl + URLS.loginSuccess;
 
     await axios

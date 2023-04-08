@@ -26,14 +26,9 @@ export default class CreatePost extends Component {
       if (userData == null){
         login()
       }else{
-        console.log("getting user data in create", userData)
         this.setState({userID:userData._id});
       }
-      
-
     });
-    
-
   }
 
   OnHeadingEntry(e) {
@@ -66,7 +61,6 @@ export default class CreatePost extends Component {
     };
 
     console.log(post);
-    // window.location = "/";
 
     axios
       .post("http://localhost:5000/post/add", post)
