@@ -6,7 +6,7 @@ import React, { Component } from "react";
 import Navbar from "./components/navbar.component";
 import Home from "./pages/Home.component";
 import EditPost from "./components/editpost.component";
-import ViewPost from "./components/viewpost.component";
+import ViewPost from "./pages/PostPage.component";
 import CreatePost from "./components/createpost.component";
 import Login from "./components/login.component";
 

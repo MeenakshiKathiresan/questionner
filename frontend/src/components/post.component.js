@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { convertDate } from "../Utils/utils";
 
 export default class Post extends Component {
   constructor(props) {
@@ -9,11 +10,27 @@ export default class Post extends Component {
   render() {
     return (
       <div className="Default-Margin Post-Box p-3">
-        <h4>{this.state.post.heading}</h4>
-        created by
-        <> {this.state.post.user.username} </>
-        at {this.state.post.createdAt} <br />
+        
+        <div className="d-flex flex-row">
+          <img
+            className="rounded-circle shadow-1-strong me-3 mt-1"
+            src={this.state.post.user ? this.state.post.user.dp : ""}
+            alt="avatar"
+            width="35"
+            height="35"
+          />
+
+          <div>
+            {this.state.post.user.username}<br />
+            <div className="small">
+              {convertDate(this.state.post.createdAt)}
+            </div>
+          </div>
+        </div>
+        <br />
+        <h5>{this.state.post.heading}</h5>
         {this.state.post.content}
+        <br />
         <br />
         {this.state.post.tags
           ? this.state.post.tags.map((tag) => (
@@ -22,7 +39,6 @@ export default class Post extends Component {
               </span>
             ))
           : "no tags"}
-        {console.log(this.state.post)}
         <br />
       </div>
     );

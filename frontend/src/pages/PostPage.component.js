@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import axios from "axios";
 
 import { getPost, getComments, addComment } from "../api-services/postService";
+
+import Comments from "../components/comments.component";
+import "../global.css"
 
 export default class ViewPost extends Component {
   constructor(props) {
@@ -34,6 +36,7 @@ export default class ViewPost extends Component {
 
   onComment = () => {
     const comment = {
+    // user should be commenters not the post's user
       user: this.state.post.user,
       post: this.state.post._id,
       text: this.state.comment,
@@ -45,7 +48,7 @@ export default class ViewPost extends Component {
 
   render() {
     return (
-      <div className="Default-Margin">
+      <div className="parent-div">
         <br />
         <h3>{this.state.post.heading}</h3>
         {this.state.post.content}
@@ -61,41 +64,12 @@ export default class ViewPost extends Component {
 
         <br />
         <br />
-        {console.log(this.state.comments, "commenting")}
-        {this.state.comments.length > 0
-          ? this.state.comments.map((comment) => (
-              <div>
-                <div class="d-flex flex-start mb-4">
-                  <img
-                    class="rounded-circle shadow-1-strong me-3"
-                    src= {comment.user? comment.user.dp : ""}
-                    alt="avatar"
-                    width="65"
-                    height="65"
-                  />
-                  <div class="card w-100">
-                    <div class="card-body p-4">
-                      <div class="">
-                        <h5>{comment.user.username}</h5>
-                        <p class="small">3 hours ago</p>
-                        <p>
-                          {comment.text}
-                        </p>
-
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="d-flex align-items-center">
-                      
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))
-          : "No answers yet"}
+        {this.state.comments.length > 0 ?
+        (<Comments comments = {this.state.comments} ></Comments>):""}
 
         <br />
+
+
         <div className="card-footer py-3 border-0">
           <div className="d-flex flex-start w-100">
             <img
