@@ -54,7 +54,7 @@ function generateCreatedAtText() {
     .toString()
     .padStart(2, "0");
   const ampm = hours >= 12 ? "PM" : "AM";
-  const formattedDate = `Created at ${month} ${day}, ${year} at ${hours %
+  const formattedDate = `${month} ${day}, ${year} at ${hours %
     12}:${minutes} ${ampm}`;
 
   return formattedDate;

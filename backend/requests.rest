@@ -34,7 +34,7 @@ Content-Type: application/json
 
 
 ###
-http://localhost:5000/posts
+http://localhost:5000/post
 
 ###
 GET  http://localhost:5000/posts/64052d022b27aab1f0006f87 
@@ -53,3 +53,9 @@ Content-Type: application/json
     "tags": ["sql","mongo-db","sql-like"]
 }
 
+###
+GET http://localhost:5000/post/user/64319e5e56205a2666567676
+
+
+###
+GET http://localhost:5000/post/64333fb0b7c1b922a51be12b

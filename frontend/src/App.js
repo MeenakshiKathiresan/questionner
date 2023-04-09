@@ -9,6 +9,8 @@ import EditPost from "./components/editpost.component";
 import ViewPost from "./pages/PostPage.component";
 import CreatePost from "./pages/createpost.component";
 import Login from "./components/login.component";
+import Profile from "./pages/Profile.component"
+import { Profiler } from "react";
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
         <Route path="/create" Component={CreatePost} />
         <Route path="/edit/:id" Component={EditPost} />
         <Route path="/detail/:id" Component={ViewPost} />
+        <Route path='/profile' Component={Profile}/>
       </Routes>
     </Router>
   );

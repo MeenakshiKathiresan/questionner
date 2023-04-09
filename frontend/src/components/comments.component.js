@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { convertDate, generateCreatedAtText } from "../Utils/utils";
 import { deleteComment } from "../api-services/postService";
-
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+
 export default class Comments extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +27,6 @@ export default class Comments extends Component {
   render() {
     return (
       <div className="Default-Margin">
-        {console.log(this.props.comments)}
         {this.props.comments.map((comment) => (
           <div>
             <div className="d-flex flex-start mb-4">

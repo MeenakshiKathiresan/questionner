@@ -1,6 +1,7 @@
 import {URLS} from "../constants/urls"
 import axios from "axios"
 
+
 const getAllPosts = (setData) => {
     
     const reqUrl = URLS.baseUrl + URLS.postViewAll
@@ -12,6 +13,19 @@ const getAllPosts = (setData) => {
     })
     .catch((error) => {console.log(error)})
 
+}
+
+const getUserPosts = (user_id, setData) =>{
+    console.log(user_id, "get posts")
+    const reqUrl = URLS.baseUrl + URLS.postViewUser + '/' + user_id
+    axios.get(reqUrl)
+
+    .then(response =>{
+        console.log("get data.", response.data)
+        setData(response.data)
+        
+    })
+    .catch((error) => {console.log(error)})
 }
 
 const getPost = async (postID, setData) => {
@@ -54,4 +68,4 @@ const deleteComment = async(comment) =>{
     .delete(reqUrl)
     .then((res) => console.log(res.data, "deleting"));
 }
-export {getPost, getAllPosts, getComments, addComment, deleteComment, deletePost}
+export {getPost, getAllPosts, getUserPosts, getComments, addComment, deleteComment, deletePost}

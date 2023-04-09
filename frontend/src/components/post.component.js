@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { convertDate } from "../Utils/utils";
 import { getUser } from "../api-services/profileService";
 import { deletePost } from "../api-services/postService";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+
 export default class Post extends Component {
   constructor(props) {
     super(props);
-    this.state = { post: props.post, user: {} , onUpdate: props.onUpdate};
+    this.state = { post: props.post, user: {}, onUpdate: props.onUpdate };
   }
 
   render() {
@@ -13,7 +15,32 @@ export default class Post extends Component {
 
     return (
       <div className="Default-Margin Post-Box p-3">
+        <div className="d-flex flex-row">
         <h5>{this.state.post.heading}</h5>
+        <div className="float-end">
+            {this.state.user != null &&
+              this.state.user._id == this.state.post.user._id && (
+                <div>
+                  <div className="d-flex align-items-center">
+                    <div className="btn btn-secondary p-1">
+                      <AiFillEdit />
+                    </div>
+                    <div
+                      className="btn btn-danger p-1"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        deletePost(this.state.post); //.then(this.state.onUpdate(this.state.post));
+                      }}
+                    >
+                      <AiFillDelete />
+                    </div>
+                  </div>
+                </div>
+              )}
+          </div>
+          
+          </div>
         <div className="d-flex flex-row">
           <img
             className="rounded-circle shadow-1-strong me-3 mt-1"
@@ -30,7 +57,9 @@ export default class Post extends Component {
               {convertDate(this.state.post.createdAt)}
             </div>
           </div>
+          
         </div>
+
         <br />
         {this.state.post.content}
         <br />
@@ -43,26 +72,6 @@ export default class Post extends Component {
             ))
           : "no tags"}
 
-        {this.state.user != null &&
-          this.state.user._id == this.state.post.user._id && (
-            <div>
-              <div className="d-flex align-items-center">
-                <div className="btn btn-secondary">Edit</div>
-                <div
-                  className="btn btn-danger"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    deletePost(this.state.post)//.then(this.state.onUpdate(this.state.post));
-                    
-                    ;
-                  }}
-                >
-                  Delete
-                </div>
-              </div>
-            </div>
-          )}
         <br />
       </div>
     );

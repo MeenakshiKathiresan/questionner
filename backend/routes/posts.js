@@ -45,6 +45,17 @@ router.route("/:id").delete((req, res) => {
     .catch((err) => res.status(400).json("Error" + err));
 });
 
+router.route("/user/:id").get((req, res)=>{
+   
+    Post.find({user:req.params.id})
+    .populate("user")
+    .then((posts) => {
+      posts.reverse();
+      res.json(posts);
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+})
+
 router.route("/update/:id").post((req, res) => {
   Post.findById(req.params.id)
     .then((post) => {
