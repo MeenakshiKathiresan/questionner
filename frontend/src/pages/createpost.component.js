@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import "../global.css"
 
 import { login, getUser } from "../api-services/profileService";
 
@@ -65,12 +66,14 @@ export default class CreatePost extends Component {
     axios
       .post("http://localhost:5000/post/add", post)
       .then((res) => console.log(res.data));
+
+    window.location.href = "/"
   }
 
   render() {
     return (
-      <div className="d-flex justify-content-center">
-        <div className="w-50">
+      <div className=" parent-div">
+        <div>
           <br />
           <br />
           <div>

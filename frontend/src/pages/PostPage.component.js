@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import { getPost, getComments, addComment } from "../api-services/postService";
+import { getUser, login } from "../api-services/profileService";
 
 import Comments from "../components/comments.component";
 import "../global.css"
@@ -8,7 +9,7 @@ import "../global.css"
 export default class ViewPost extends Component {
   constructor(props) {
     super(props);
-    this.state = { post: {}, comments: [], comment: "" };
+    this.state = { post: {}, comments: [], comment: "", user: {} };
     this.onComment = this.onComment.bind(this);
     this.onCommentEntry = this.onCommentEntry.bind(this);
   }
@@ -26,6 +27,14 @@ export default class ViewPost extends Component {
       this.setState({ comments: commentData });
       console.log(this.state.comments, "in view!");
     });
+
+    getUser((userData) => {
+      if (userData == null){
+        login()
+      }else{
+        this.setState({user:userData});
+      }
+    });
   }
 
   onCommentEntry(e) {
@@ -35,15 +44,19 @@ export default class ViewPost extends Component {
   }
 
   onComment = () => {
+
     const comment = {
     // user should be commenters not the post's user
-      user: this.state.post.user,
+      user: this.state.user._id,
       post: this.state.post._id,
       text: this.state.comment,
       upvotes: [],
       downvotes: [],
     };
     addComment(comment);
+    
+    this.setState({comments:[...this.state.comments, comment]})
+    
   };
 
   render() {
@@ -65,7 +78,7 @@ export default class ViewPost extends Component {
         <br />
         <br />
         {this.state.comments.length > 0 ?
-        (<Comments comments = {this.state.comments} ></Comments>):""}
+        (<Comments comments = {this.state.comments} user = {this.state.user} ></Comments>):""}
 
         <br />
 
@@ -74,14 +87,15 @@ export default class ViewPost extends Component {
           <div className="d-flex flex-start w-100">
             <img
               className="rounded-circle shadow-1-strong me-3"
-              src={this.state.post.user ? this.state.post.user.dp : ""}
+              
+              src={this.state.user ? this.state.user.dp : ""}
               alt="avatar"
               width="40"
               height="40"
             />
 
             <div className="form-outline w-100">
-              {this.state.post.user ? this.state.post.user.username : ""}
+              {this.state.user ? this.state.user.username : ""}
               <textarea
                 className="form-control"
                 placeholder="Add an answer"

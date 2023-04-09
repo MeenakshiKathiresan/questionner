@@ -36,9 +36,22 @@ const getComments = async (postID, setComments) => {
 
 const addComment = async(comment) =>{
     const reqUrl = URLS.baseUrl + URLS.commentAdd + '/' + comment.post
+    
     await axios
     .post(reqUrl, comment)
     .then((res) => console.log(res.data));
 }
+const deletePost = async(post) =>{
+    const reqUrl = URLS.baseUrl + URLS.post + '/' + post._id
+    await axios
+    .delete(reqUrl)
+    .then((res) => console.log(res.data, "deleting"));
+}
 
-export {getPost, getAllPosts, getComments, addComment}
+const deleteComment = async(comment) =>{
+    const reqUrl = URLS.baseUrl + URLS.comments + '/' + comment._id
+    await axios
+    .delete(reqUrl)
+    .then((res) => console.log(res.data, "deleting"));
+}
+export {getPost, getAllPosts, getComments, addComment, deleteComment, deletePost}

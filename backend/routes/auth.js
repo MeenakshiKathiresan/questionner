@@ -8,7 +8,6 @@ router.route("/login/success").get( (req, res) => {
 
     if (req.user){
         res.status(200).json({user:req.user})
-        console.log(req.user)
     }else{
         res.status(200).json({message: "no user"})
     }
@@ -27,7 +26,6 @@ router.route("/google/callback").get(passport.authenticate("google", {
 
 router.route("/logout").get((req, res)=>{
     req.logout({}, (err)=>{
-        console.log("logout")
         if (err) return res.status(500).json({message:"something went wrong"})
         res.redirect(clientURL)
     })

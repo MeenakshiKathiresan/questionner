@@ -17,7 +17,7 @@ export default class PostList extends Component {
   postList() {
     return this.state.posts.map(post => {
         return <Link to={ {pathname:`/detail/${post._id}`}} style={{ textDecoration: 'none', color:'black' }}>
-          <Post post = {post} key = {post._id}></Post>
+          <Post post = {post}></Post>
           </Link>
     })
   }

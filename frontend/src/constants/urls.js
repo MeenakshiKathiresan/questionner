@@ -7,6 +7,7 @@ const URLS = {
     logOut: "/auth/logout",
 
     //Post
+    post: "/post",
     postAdd: "/post/add",
     postViewAll: "/post",
 
