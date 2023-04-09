@@ -54,7 +54,9 @@ export default class ViewPost extends Component {
       downvotes: [],
     };
     addComment(comment);
-    
+    comment.user = this.state.user
+    comment.post = this.state.post
+    console.log("comment", comment)
     this.setState({comments:[...this.state.comments, comment]})
     
   };

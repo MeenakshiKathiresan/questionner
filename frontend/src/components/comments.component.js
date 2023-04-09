@@ -1,29 +1,34 @@
 import React, { Component } from "react";
-import { convertDate } from "../Utils/utils";
+import { convertDate, generateCreatedAtText } from "../Utils/utils";
 import { deleteComment } from "../api-services/postService";
 
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 export default class Comments extends Component {
   constructor(props) {
     super(props);
-    this.state = { comments: props.comments, user: props.user };
+    this.props = props
     this.deleteCommentPost = this.deleteCommentPost.bind(this);
   }
 
   componentDidMount() {
-    console.log("comemtns");
   }
 
   editComment() {}
 
   deleteCommentPost(comment) {
-    console.log("delete clicked", comment, "comment deleting")
+    this.setState({
+      comments: this.props.comments.filter(
+        (currentComment) => comment._id != currentComment._id
+      ),
+    });
     deleteComment(comment);
   }
 
   render() {
     return (
       <div className="Default-Margin">
-        {this.state.comments.map((comment) => (
+        {console.log(this.props.comments)}
+        {this.props.comments.map((comment) => (
           <div>
             <div className="d-flex flex-start mb-4">
               <img
@@ -38,17 +43,19 @@ export default class Comments extends Component {
                   <div className="card-body p-3">
                     <div className="">
                       <b>{comment.user.username}</b>
-                      <p className="small">{convertDate(comment.createdAt)}</p>
+                      <p className="small">{comment.createdAt? (convertDate(comment.createdAt)):(generateCreatedAtText())}</p>
                       <p>{comment.text}</p>
-                      {console.log(comment.user._id, this.state.user._id)}
-                      {comment.user._id == this.state.user._id && (
-                        <div className="d-flex align-items-center">
-                          <div className="btn btn-secondary">Edit</div>
+                      {comment.user._id == this.props.user._id && (
+                        <div className="d-flex ">
+                          <div className="btn btn-secondary">
+                            <AiFillEdit />
+                          </div>
+
                           <div
                             className="btn btn-danger"
-                            onClick={ (e) => this.deleteCommentPost(comment)}
-                          >{console.log(comment, "comment check")}
-                            Delete
+                            onClick={(e) => this.deleteCommentPost(comment)}
+                          >
+                            <AiFillDelete />
                           </div>
                         </div>
                       )}

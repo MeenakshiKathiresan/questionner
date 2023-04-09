@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import { convertDate } from "../Utils/utils";
 import { getUser } from "../api-services/profileService";
 import { deletePost } from "../api-services/postService";
-
 export default class Post extends Component {
   constructor(props) {
     super(props);
-    this.state = { post: props.post, user: {} };
+    this.state = { post: props.post, user: {} , onUpdate: props.onUpdate};
   }
 
   render() {
@@ -54,7 +53,9 @@ export default class Post extends Component {
                   onClick={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    deletePost(this.state.post);
+                    deletePost(this.state.post)//.then(this.state.onUpdate(this.state.post));
+                    
+                    ;
                   }}
                 >
                   Delete
