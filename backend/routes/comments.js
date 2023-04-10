@@ -31,6 +31,33 @@ router.route("/:id").get(async (req, res) => {
     .catch((err) => res.status(400).json("Error" + err));
 });
 
+
+router.route("/upvote/:id").put(async (req, res) => {
+  Comment.findByIdAndUpdate(req.params.id,
+    
+    { $pull: { downvotes: req.body.user },
+      $addToSet: {upvotes: req.body.user}
+    }
+    )
+    .then(() => {
+      res.json("upvoted");
+    })
+    .catch((err) => res.status(400).json("Error" + err));
+});
+
+router.route("/downvote/:id").put(async (req, res) => {
+  Comment.findByIdAndUpdate(req.params.id,
+    {
+      $addToSet: {downvotes: req.body.user},
+      $pull: { upvotes: req.body.user }
+    }
+    )
+    .then(() => {
+      res.json("downvoted");
+    })
+    .catch((err) => res.status(400).json("Error" + err));
+});
+
 router.route("/:id").delete((req, res) => {
   //check if logged in user is the same as the commenter
   Comment.findByIdAndDelete(req.params.id)
@@ -39,5 +66,7 @@ router.route("/:id").delete((req, res) => {
     })
     .catch((err) => res.status(400).json("Error" + err));
 });
+
+
 
 module.exports = router;

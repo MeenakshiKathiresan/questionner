@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { getPost, getComments, addComment } from "../api-services/postService";
 import { getUser, login } from "../api-services/profileService";
-
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import Comments from "../components/comments.component";
 import "../global.css"
 
@@ -66,7 +66,9 @@ export default class ViewPost extends Component {
       <div className="parent-div">
         <br />
         <h3>{this.state.post.heading}</h3>
+        <ReactMarkdown>
         {this.state.post.content}
+        </ReactMarkdown>
         <br />
 
         {this.state.post.tags

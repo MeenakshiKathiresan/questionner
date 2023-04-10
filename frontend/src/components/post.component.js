@@ -4,6 +4,7 @@ import { getUser } from "../api-services/profileService";
 import { deletePost } from "../api-services/postService";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BiCommentDetail } from "react-icons/bi";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 import "../App.css";
 
@@ -69,7 +70,9 @@ export default class Post extends Component {
         </div>
 
         <br />
+        <ReactMarkdown>
         {this.state.post.content}
+        </ReactMarkdown>
         <br />
         <br />
         {this.state.post.tags

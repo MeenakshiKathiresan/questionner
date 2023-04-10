@@ -2,26 +2,30 @@ const router = require("express").Router();
 let Post = require("../models/post.model");
 let Comment = require("../models/comment.model");
 
-router.route("/").get((req, res) => {
-  Post.find()
+ getPostWithComments = async (posts) => {
+  const commentCounts = await Promise.all(
+    posts.map((post) => {
+      return Comment.countDocuments({ post: post._id });
+    })
+  );
+
+  const postsWithCommentCount = posts.map((post, index) => {
+    return {
+      ...post.toObject(),
+      commentCount: commentCounts[index] || 0,
+    };
+  });
+  return postsWithCommentCount
+
+}
+
+router.route("/").get(async (req, res) => {
+  await Post.find()
     .populate("user")
     .then(async (posts) => {
       posts.reverse();
-
-      const commentCounts = await Promise.all(
-        posts.map((post) => {
-          return Comment.countDocuments({ post: post._id });
-        })
-      );
-
-      const postsWithCommentCount = posts.map((post, index) => {
-        return {
-          ...post.toObject(),
-          commentCount: commentCounts[index] || 0,
-        };
-      });
-
-      res.json(postsWithCommentCount);
+      postsWithCommentCount = await getPostWithComments(posts)
+         res.json(postsWithCommentCount);
     })
     .catch((err) => res.status(400).json("Error: " + err));
 });
@@ -64,9 +68,11 @@ router.route("/:id").delete((req, res) => {
 router.route("/user/:id").get((req, res) => {
   Post.find({ user: req.params.id })
     .populate("user")
-    .then((posts) => {
+    .then(async (posts) => {
       posts.reverse();
-      res.json(posts);
+      postsWithCommentCount = await getPostWithComments(posts)
+         res.json(postsWithCommentCount);
+    
     })
     .catch((err) => res.status(400).json("Error: " + err));
 });

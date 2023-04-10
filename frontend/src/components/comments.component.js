@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import { convertDate, generateCreatedAtText } from "../Utils/utils";
 import { deleteComment } from "../api-services/postService";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 export default class Comments extends Component {
   constructor(props) {
     super(props);
-    this.props = props
+    this.props = props;
     this.deleteCommentPost = this.deleteCommentPost.bind(this);
   }
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   editComment() {}
 
@@ -42,26 +42,30 @@ export default class Comments extends Component {
                   <div className="card-body p-3">
                     <div className="">
                       <b>{comment.user.username}</b>
-                      <p className="small">{comment.createdAt? (convertDate(comment.createdAt)):(generateCreatedAtText())}</p>
-                      <p>{comment.text}</p>
-                      {comment.user._id == this.props.user._id && (
-                        <div className="d-flex ">
-                          <div className="btn btn-secondary">
-                            <AiFillEdit />
-                          </div>
 
-                          <div
-                            className="btn btn-danger"
-                            onClick={(e) => this.deleteCommentPost(comment)}
-                          >
-                            <AiFillDelete />
+                      <div className="right-corner">
+                        {comment.user._id == this.props.user._id && (
+                          <div className="d-flex ">
+                            <div className="btn">
+                              <AiFillEdit color="orange" />
+                            </div>
+                            <div
+                              className="btn"
+                              onClick={(e) => this.deleteCommentPost(comment)}
+                            >
+                              <AiFillDelete color="red" />
+                            </div>
                           </div>
-                        </div>
-                      )}
-
-                      <div className="d-flex justify-content-between align-items-center">
-                        <div className="d-flex align-items-center"></div>
+                        )}
                       </div>
+                      <p className="small">
+                        {comment.createdAt
+                          ? convertDate(comment.createdAt)
+                          : generateCreatedAtText()}
+                      </p>
+                      <p>
+                        <ReactMarkdown>{comment.text}</ReactMarkdown>
+                      </p>
                     </div>
                   </div>
                 </div>
