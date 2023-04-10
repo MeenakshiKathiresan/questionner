@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 
 import { getPost, getComments, addComment } from "../api-services/postService";
+import { convertDate } from "../Utils/utils";
 import { getUser, login } from "../api-services/profileService";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import Comments from "../components/comments.component";
-import "../global.css"
+import "../global.css";
 
 export default class ViewPost extends Component {
   constructor(props) {
@@ -29,10 +30,10 @@ export default class ViewPost extends Component {
     });
 
     getUser((userData) => {
-      if (userData == null){
-        login()
-      }else{
-        this.setState({user:userData});
+      if (userData == null) {
+        login();
+      } else {
+        this.setState({ user: userData });
       }
     });
   }
@@ -44,9 +45,8 @@ export default class ViewPost extends Component {
   }
 
   onComment = () => {
-
     const comment = {
-    // user should be commenters not the post's user
+      // user should be commenters not the post's user
       user: this.state.user._id,
       post: this.state.post._id,
       text: this.state.comment,
@@ -54,11 +54,10 @@ export default class ViewPost extends Component {
       downvotes: [],
     };
     addComment(comment);
-    comment.user = this.state.user
-    comment.post = this.state.post
-    console.log("comment", comment)
-    this.setState({comments:[...this.state.comments, comment]})
-    
+    comment.user = this.state.user;
+    comment.post = this.state.post;
+    console.log("comment", comment);
+    this.setState({ comments: [...this.state.comments, comment] });
   };
 
   render() {
@@ -66,9 +65,27 @@ export default class ViewPost extends Component {
       <div className="parent-div">
         <br />
         <h3>{this.state.post.heading}</h3>
-        <ReactMarkdown>
-        {this.state.post.content}
-        </ReactMarkdown>
+        <div className="d-flex flex-row">
+          <img
+            className="rounded-circle shadow-1-strong me-3 mt-1"
+            src={this.state.post.user ? this.state.post.user.dp : ""}
+            alt="avatar"
+            width="35"
+            height="35"
+          />
+
+          <div>
+            {this.state.post.user ? this.state.post.user.username:""}
+            <br />
+            <div className="small">
+              {convertDate(this.state.post.createdAt)}
+            </div>
+          </div>
+        </div>
+
+        <br />
+
+        <ReactMarkdown>{this.state.post.content}</ReactMarkdown>
         <br />
 
         {this.state.post.tags
@@ -81,17 +98,21 @@ export default class ViewPost extends Component {
 
         <br />
         <br />
-        {this.state.comments.length > 0 ?
-        (<Comments comments = {this.state.comments} user = {this.state.user} ></Comments>):""}
+        {this.state.comments.length > 0 ? (
+          <Comments
+            comments={this.state.comments}
+            user={this.state.user}
+          ></Comments>
+        ) : (
+          ""
+        )}
 
         <br />
-
 
         <div className="card-footer py-3 border-0">
           <div className="d-flex flex-start w-100">
             <img
               className="rounded-circle shadow-1-strong me-3"
-              
               src={this.state.user ? this.state.user.dp : ""}
               alt="avatar"
               width="40"

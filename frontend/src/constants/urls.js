@@ -14,7 +14,9 @@ const URLS = {
 
     //comments
     comments: "/comments",
-    commentAdd: "/comments/add"
+    commentAdd: "/comments/add",
+    commentUpvote: "/comments/upvote",
+    commentDownvote: "/comments/downvote"
     
 }
 

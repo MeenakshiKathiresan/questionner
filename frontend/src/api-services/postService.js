@@ -68,4 +68,20 @@ const deleteComment = async(comment) =>{
     .delete(reqUrl)
     .then((res) => console.log(res.data, "deleting"));
 }
-export {getPost, getAllPosts, getUserPosts, getComments, addComment, deleteComment, deletePost}
+
+const upVoteComment = async(comment, user) => {
+    const reqUrl = URLS.baseUrl + URLS.commentUpvote + '/' + comment._id
+    await axios
+    .put(reqUrl, {user:user._id})
+    .then((res) => console.log(res))
+}
+
+const downVoteComment = async(comment, user) => {
+    const reqUrl = URLS.baseUrl + URLS.commentDownvote + '/' + comment._id
+    await axios
+    .put(reqUrl, {user:user._id})
+    .then((res) => console.log(res))
+}
+
+
+export {getPost, getAllPosts, getUserPosts, getComments, addComment, deleteComment, deletePost, upVoteComment, downVoteComment}

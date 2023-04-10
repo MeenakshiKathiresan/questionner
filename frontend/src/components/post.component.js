@@ -73,8 +73,7 @@ export default class Post extends Component {
         <ReactMarkdown>
         {this.state.post.content}
         </ReactMarkdown>
-        <br />
-        <br />
+   
         {this.state.post.tags
           ? this.state.post.tags.map((tag) => (
               <span className="p-1">
@@ -83,7 +82,8 @@ export default class Post extends Component {
             ))
           : "no tags"}
 
-        <br />
+ 
+        <br/>
       </div>
     );
   }

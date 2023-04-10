@@ -59,3 +59,35 @@ GET http://localhost:5000/post/user/64319e5e56205a2666567676
 
 ###
 GET http://localhost:5000/post/64333fb0b7c1b922a51be12b
+
+
+
+###
+GET http://localhost:5000/post
+
+###
+GET http://localhost:5000/comments/6433480b8805d84fca30595d
+
+### 
+PUT http://localhost:5000/comments/upvote/64342b0da1d9b9f2564d2840
+Content-Type: application/json
+
+{
+    "user":"64319e5e56205a2666567676"
+}
+
+###
+PUT http://localhost:5000/comments/downvote/64342b0da1d9b9f2564d2840
+Content-Type: application/json
+
+{
+    "user":"64319e5e56205a2666567676"
+}
+###
+
+POST http://localhost:5000/comments/upvoteclear/64342b0da1d9b9f2564d2840
+Content-Type: application/json
+
+{
+    "user":"64319e5e56205a2666567676"
+}
