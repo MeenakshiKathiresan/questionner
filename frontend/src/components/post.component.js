@@ -3,6 +3,9 @@ import { convertDate } from "../Utils/utils";
 import { getUser } from "../api-services/profileService";
 import { deletePost } from "../api-services/postService";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { BiCommentDetail } from "react-icons/bi";
+
+import "../App.css";
 
 export default class Post extends Component {
   constructor(props) {
@@ -15,32 +18,38 @@ export default class Post extends Component {
 
     return (
       <div className="Default-Margin Post-Box p-3">
-        <div className="d-flex flex-row">
-        <h5>{this.state.post.heading}</h5>
+        <span className="btn btn-outline-secondary right-corner p-2">
+          <BiCommentDetail /> {this.state.post.commentCount}
+        </span>
+
         <div className="float-end">
-            {this.state.user != null &&
-              this.state.user._id == this.state.post.user._id && (
-                <div>
-                  <div className="d-flex align-items-center">
-                    <div className="btn btn-secondary p-1">
-                      <AiFillEdit />
-                    </div>
-                    <div
-                      className="btn btn-danger p-1"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        deletePost(this.state.post); //.then(this.state.onUpdate(this.state.post));
-                      }}
-                    >
-                      <AiFillDelete />
-                    </div>
+          {this.state.user != null &&
+            this.state.user._id == this.state.post.user._id && (
+              <div>
+                <div className="d-flex align-items-center">
+                  <div className="btn  p-1">
+                    <AiFillEdit color="orange" />
+                  </div>
+                  <div
+                    className="btn p-1"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      deletePost(this.state.post); //.then(this.state.onUpdate(this.state.post));
+                    }}
+                  >
+                    <AiFillDelete color="red" />
+
+                    
                   </div>
                 </div>
-              )}
-          </div>
-          
-          </div>
+              </div>
+            )}
+        </div>
+
+        <div>
+          <h5>{this.state.post.heading}</h5>
+        </div>
         <div className="d-flex flex-row">
           <img
             className="rounded-circle shadow-1-strong me-3 mt-1"
@@ -57,7 +66,6 @@ export default class Post extends Component {
               {convertDate(this.state.post.createdAt)}
             </div>
           </div>
-          
         </div>
 
         <br />

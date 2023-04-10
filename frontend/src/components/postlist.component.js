@@ -7,6 +7,7 @@ export default class PostList extends Component {
   constructor(props) {
     super(props);
     this.onUpdate = this.onUpdate.bind(this)
+    console.log(props.posts)
   }
 
   
@@ -18,6 +19,7 @@ export default class PostList extends Component {
   }
   
   postList() {
+    console.log(this.props.posts)
     return this.props.posts.map(post => {
         return <Link to={ {pathname:`/detail/${post._id}`}} style={{ textDecoration: 'none', color:'black' }}>
           <Post post = {post} onUpdate = {this.onUpdate}></Post>
