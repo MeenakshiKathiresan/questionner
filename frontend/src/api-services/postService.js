@@ -2,10 +2,15 @@ import {URLS} from "../constants/urls"
 import axios from "axios"
 
 
-const getAllPosts = (setData) => {
-    
+const getAllPosts = (setData, searchWord) => {
     const reqUrl = URLS.baseUrl + URLS.postViewAll
-    axios.get(reqUrl)
+    const config = {
+        params: {
+            search: searchWord
+        }
+    }
+
+    axios.get(reqUrl, config)
 
     .then(response =>{
         setData(response.data)

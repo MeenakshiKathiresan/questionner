@@ -52,13 +52,14 @@ export default class Post extends Component {
           <h5>{this.state.post.heading}</h5>
         </div>
         <div className="d-flex flex-row">
+        {this.state.post.user ?
           <img
             className="rounded-circle shadow-1-strong me-3 mt-1"
-            src={this.state.post.user ? this.state.post.user.dp : ""}
-            alt="avatar"
+            src={this.state.post.user.dp}
+            alt=""
             width="35"
             height="35"
-          />
+          />: ""}
 
           <div>
             {this.state.post.user.username}

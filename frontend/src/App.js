@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
 import Navbar from "./components/navbar.component";
 import Home from "./pages/Home.component";
@@ -10,14 +10,23 @@ import ViewPost from "./pages/PostPage.component";
 import CreatePost from "./pages/createpost.component";
 import Login from "./components/login.component";
 import Profile from "./pages/Profile.component"
+import SearchContext from "./context/SearchContext";
 import { Profiler } from "react";
 
 function App() {
+  
+  const [searchWord, setSearchWord] = useState('');
+
+
   return (
     <Router>
-      <Navbar />
+
+      <SearchContext.Provider value={{searchWord, setSearchWord}}>
+        <Navbar setSearchWord={setSearchWord}/>
+      </SearchContext.Provider>
       <Routes>
-        <Route path="/" Component={Home} />
+        <Route path="/" Component={(props) => <Home {...props} searchWord={searchWord} />}
+ />
         <Route path="/create" Component={CreatePost} />
         <Route path="/edit/:id" Component={EditPost} />
         <Route path="/detail/:id" Component={ViewPost} />

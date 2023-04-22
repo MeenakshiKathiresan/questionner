@@ -20,7 +20,10 @@ let Comment = require("../models/comment.model");
 }
 
 router.route("/").get(async (req, res) => {
-  await Post.find()
+  const word = req.query.search
+  const query = { $or: [ { heading: { $regex: word, $options: "i" } }, { content: { $regex: word, $options: "i" } } ] };
+  console.log(word)
+  await Post.find(query)
     .populate("user")
     .then(async (posts) => {
       posts.reverse();
