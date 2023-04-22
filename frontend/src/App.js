@@ -25,8 +25,8 @@ function App() {
         <Navbar setSearchWord={setSearchWord}/>
       </SearchContext.Provider>
       <Routes>
-        <Route path="/" Component={(props) => <Home {...props} searchWord={searchWord} />}
- />
+        <Route path="/" Component={(props) => <Home {...props} searchWord={searchWord} />}/>
+        <Route path="/tags/:tag" Component={(props) => <Home {...props} searchWord={searchWord} />}/>
         <Route path="/create" Component={CreatePost} />
         <Route path="/edit/:id" Component={EditPost} />
         <Route path="/detail/:id" Component={ViewPost} />

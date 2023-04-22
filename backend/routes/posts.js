@@ -34,6 +34,21 @@ router.route("/").get(async (req, res) => {
 });
 
 
+router.route("/tag/:tagname").get(async (req, res) => {
+  const word = req.params.tagname
+  const query = { tags: { $regex: new RegExp(word, "i") } };
+  await Post.find(query)
+    .populate("user")
+    .then(async (posts) => {
+      posts.reverse();
+      postsWithCommentCount = await getPostWithComments(posts)
+         res.json(postsWithCommentCount);
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+
+
 router.route("/add").post((req, res) => {
   const user = req.body.user;
   const heading = req.body.heading;

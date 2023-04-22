@@ -5,6 +5,7 @@ import { deletePost } from "../api-services/postService";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BiCommentDetail } from "react-icons/bi";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import Tags from "./tags.component";
 
 import "../App.css";
 
@@ -75,13 +76,8 @@ export default class Post extends Component {
         {this.state.post.content}
         </ReactMarkdown>
    
-        {this.state.post.tags
-          ? this.state.post.tags.map((tag) => (
-              <span className="p-1">
-                <span className="badge bg-secondary"> {tag} </span>
-              </span>
-            ))
-          : "no tags"}
+  
+          <Tags tags={this.state.post.tags}/>
 
  
         <br/>

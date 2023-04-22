@@ -6,6 +6,7 @@ import { getUser, login } from "../api-services/profileService";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import Comments from "../components/comments.component";
 import "../global.css";
+import Tags from "../components/tags.component";
 
 export default class ViewPost extends Component {
   constructor(props) {
@@ -75,7 +76,7 @@ export default class ViewPost extends Component {
           />
 
           <div>
-            {this.state.post.user ? this.state.post.user.username:""}
+            {this.state.post.user ? this.state.post.user.username : ""}
             <br />
             <div className="small">
               {convertDate(this.state.post.createdAt)}
@@ -87,15 +88,8 @@ export default class ViewPost extends Component {
 
         <ReactMarkdown>{this.state.post.content}</ReactMarkdown>
         <br />
-
-        {this.state.post.tags
-          ? this.state.post.tags.map((tag) => (
-              <span className="p-1">
-                <span className="badge bg-secondary"> {tag} </span>{" "}
-              </span>
-            ))
-          : "no tags"}
-
+        
+        <Tags tags={this.state.post.tags} />
         <br />
         <br />
         {this.state.comments.length > 0 ? (

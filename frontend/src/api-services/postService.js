@@ -20,6 +20,19 @@ const getAllPosts = (setData, searchWord) => {
 
 }
 
+const getTagPosts = (setData, tag) => {
+    const reqUrl = URLS.baseUrl + "/post/tag/" + tag
+
+    axios.get(reqUrl)
+
+    .then(response =>{
+        setData(response.data)
+        
+    })
+    .catch((error) => {console.log(error)})
+
+}
+
 const getUserPosts = (user_id, setData) =>{
     console.log(user_id, "get posts")
     const reqUrl = URLS.baseUrl + URLS.postViewUser + '/' + user_id
@@ -89,4 +102,4 @@ const downVoteComment = async(comment, user) => {
 }
 
 
-export {getPost, getAllPosts, getUserPosts, getComments, addComment, deleteComment, deletePost, upVoteComment, downVoteComment}
+export {getPost, getAllPosts, getUserPosts, getTagPosts, getComments, addComment, deleteComment, deletePost, upVoteComment, downVoteComment}
