@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { convertDate, generateCreatedAtText } from "../Utils/utils";
 import {
-  deleteComment,
   upVoteComment,
   downVoteComment,
 } from "../api-services/postService";
@@ -20,9 +19,17 @@ export default class Comments extends Component {
     this.deleteCommentPost = this.deleteCommentPost.bind(this);
     this.upVoteCommentPost = this.upVoteCommentPost.bind(this);
     this.getCurrentVote = this.getCurrentVote.bind(this)
+    this.state = {comments: props.comments}
+    
   }
 
-  componentDidMount() {}
+  componentDidUpdate(prevProps){
+    if (prevProps.comments !== this.props.comments) {
+      this.setState({
+        comments: this.props.comments,
+      });
+    }
+  }
 
   editComment() {}
 
@@ -38,22 +45,20 @@ export default class Comments extends Component {
   }
 
   getCurrentVote(comment){
-    return comment.upvotes.length - comment.downvotes.length 
+    if (comment.upvotes && comment.downvotes){
+
+      return comment.upvotes.length - comment.downvotes.length 
+    }
   }
 
   deleteCommentPost(comment) {
-    this.setState({
-      comments: this.props.comments.filter(
-        (currentComment) => comment._id != currentComment._id
-      ),
-    });
-    deleteComment(comment);
+    this.props.onDeleteComment(comment)
   }
 
   render() {
     return (
       <div className="Default-Margin">
-        {this.props.comments.map((comment) => (
+        {this.state.comments.map((comment) => (
           <div>
             <div className="d-flex flex-start mb-4">
               <div>

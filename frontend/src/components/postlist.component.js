@@ -1,28 +1,27 @@
 import React, { Component } from "react";
 import Post from "./post.component";
 import {Link} from 'react-router-dom';
-import { getAllPosts } from "../api-services/postService";
+import { getAllPosts, deletePost } from "../api-services/postService";
 
 export default class PostList extends Component {
   constructor(props) {
     super(props);
-    this.onUpdate = this.onUpdate.bind(this)
+    this.props = props;
+    this.state = props;
+    this.onUpdate = this.onDelete.bind(this)
     console.log(props.posts)
   }
 
-  
-
-  onUpdate(post){
+  onDelete(post){
     console.log("updates")
-    this.setState({posts: this.props.posts.filter(currentPost => post._id!=currentPost._id)})
-    
+    //this.setState({posts : this.props.posts.filter(currentPost => post._id!=currentPost._id)})
+    deletePost(post); 
   }
   
   postList() {
-    console.log(this.props.posts)
     return this.props.posts.map(post => {
         return <Link to={ {pathname:`/detail/${post._id}`}} style={{ textDecoration: 'none', color:'black' }}>
-          <Post post = {post} onUpdate = {this.onUpdate}></Post>
+          <Post post = {post} onDelete = {this.onDelete}></Post>
           </Link>
     })
   }

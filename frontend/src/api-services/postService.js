@@ -66,12 +66,15 @@ const getComments = async (postID, setComments) => {
     .catch(error =>{console.log(error)})
 }
 
-const addComment = async(comment) =>{
+const addComment = async(getComment, comment) =>{
     const reqUrl = URLS.baseUrl + URLS.commentAdd + '/' + comment.post
     
     await axios
     .post(reqUrl, comment)
-    .then((res) => console.log(res.data));
+    .then((res) => {
+        getComment(res.data)
+        console.log(res.data, "comment added!")
+    });
 }
 const deletePost = async(post) =>{
     const reqUrl = URLS.baseUrl + URLS.post + '/' + post._id

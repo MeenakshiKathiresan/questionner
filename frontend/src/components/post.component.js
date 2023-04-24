@@ -12,6 +12,7 @@ import "../App.css";
 export default class Post extends Component {
   constructor(props) {
     super(props);
+    this.props = props;
     this.state = { post: props.post, user: {}, onUpdate: props.onUpdate };
   }
 
@@ -37,12 +38,11 @@ export default class Post extends Component {
                     onClick={(e) => {
                       e.stopPropagation();
                       e.preventDefault();
-                      deletePost(this.state.post); //.then(this.state.onUpdate(this.state.post));
+                      this.props.onDelete(this.state.post);
+                      ////.then(this.state.onUpdate(this.state.post));
                     }}
                   >
                     <AiFillDelete color="red" />
-
-                    
                   </div>
                 </div>
               </div>
@@ -53,14 +53,17 @@ export default class Post extends Component {
           <h5>{this.state.post.heading}</h5>
         </div>
         <div className="d-flex flex-row">
-        {this.state.post.user ?
-          <img
-            className="rounded-circle shadow-1-strong me-3 mt-1"
-            src={this.state.post.user.dp}
-            alt=""
-            width="35"
-            height="35"
-          />: ""}
+          {this.state.post.user ? (
+            <img
+              className="rounded-circle shadow-1-strong me-3 mt-1"
+              src={this.state.post.user.dp}
+              alt=""
+              width="35"
+              height="35"
+            />
+          ) : (
+            ""
+          )}
 
           <div>
             {this.state.post.user.username}
@@ -72,15 +75,13 @@ export default class Post extends Component {
         </div>
 
         <br />
-        <ReactMarkdown>
-        {this.state.post.content}
-        </ReactMarkdown>
-   
-  
-          <Tags tags={this.state.post.tags}/>
+        <div className="text-box">
+          <ReactMarkdown>{this.state.post.content}</ReactMarkdown>
+        </div>
 
- 
-        <br/>
+        <Tags tags={this.state.post.tags} />
+
+        <br />
       </div>
     );
   }

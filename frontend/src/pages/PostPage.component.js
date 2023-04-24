@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { getPost, getComments, addComment } from "../api-services/postService";
+import { getPost, getComments, addComment, deleteComment} from "../api-services/postService";
 import { convertDate } from "../Utils/utils";
 import { getUser, login } from "../api-services/profileService";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
@@ -14,6 +14,7 @@ export default class ViewPost extends Component {
     this.state = { post: {}, comments: [], comment: "", user: {} };
     this.onComment = this.onComment.bind(this);
     this.onCommentEntry = this.onCommentEntry.bind(this);
+    this.deletePostComment = this.deletePostComment.bind(this);
   }
 
   componentDidMount() {
@@ -47,19 +48,31 @@ export default class ViewPost extends Component {
 
   onComment = () => {
     const comment = {
-      // user should be commenters not the post's user
       user: this.state.user._id,
       post: this.state.post._id,
       text: this.state.comment,
       upvotes: [],
       downvotes: [],
     };
-    addComment(comment);
+    addComment((comment) =>{
+      this.setState({ comments: [...this.state.comments, comment]})
+    }, comment);
+    
     comment.user = this.state.user;
     comment.post = this.state.post;
-    console.log("comment", comment);
-    this.setState({ comments: [...this.state.comments, comment] });
   };
+
+  deletePostComment(deletedComment) {
+    deleteComment(deletedComment);
+    const updatedComments = this.state.comments.filter(
+      (comment) => comment._id !== deletedComment._id
+    );
+    console.log(deletedComment, updatedComments, "updated!")
+    this.setState({
+      comments: updatedComments,
+    });
+    
+  }
 
   render() {
     return (
@@ -96,6 +109,7 @@ export default class ViewPost extends Component {
           <Comments
             comments={this.state.comments}
             user={this.state.user}
+            onDeleteComment={this.deletePostComment}
           ></Comments>
         ) : (
           ""

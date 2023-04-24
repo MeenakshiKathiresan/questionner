@@ -18,7 +18,16 @@ router.route("/add/:id").post((req, res) => {
 
   newComment
     .save()
-    .then(() => res.json("Comment created"))
+    .then(() => {
+
+      Comment.findById(newComment._id)
+        .populate("user")
+        .then((comment) => {
+          res.json(comment);
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
+
+    })
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
