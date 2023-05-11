@@ -77,9 +77,10 @@ export default class Post extends Component {
         <br />
         <div className="text-box">
           <ReactMarkdown>{this.state.post.content}</ReactMarkdown>
+          
+        <Tags tags={this.state.post.tags} />
         </div>
 
-        <Tags tags={this.state.post.tags} />
 
         <br />
       </div>
