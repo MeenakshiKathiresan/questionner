@@ -22,53 +22,49 @@ export default class Navbar extends Component {
 
   render() {
     return (
-      <nav className="navbar-dark bg-dark sticky-top">
-        <div className="parent-div d-flex justify-content-between">
-
+      <nav className="navbar-dark navbar-expand-md bg-dark sticky-top">
+        <div className="parent-div d-flex justify-content-between p-1">
           <div className="mt-2">
-            <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-              <li>
-                <Link className="navbar-brand" to="/">
-                  <h5>Questionner</h5>
-                </Link>
-              </li>
+            <Link className="navbar-brand" to="/">
+              <h5>Questionner</h5>
+            </Link>
+          </div>
+       
+          <form className="form-inline">
+            <div className="input-group custom-search-bar">
+              <input
+                type="text"
+                className="form-control "
+                placeholder="Search"
+                aria-label="Search"
+                onChange={this.handleSearchInputChange}
+              />
+              <button className="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </div>
+          </form>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-              <li className="nav-item text-light">
+          {/* <div className="nav-item text-light mt-2">
               <Link className="nav-link" to="/create">
                 Create
               </Link>
-            </li>
-        
-            </ul>
+            </div> */}
+            <div className="float-right mt-1">
+              <Login />
+            </div>
           </div>
-          <div className="mt-2">
-            <form className="form-inline my-2 my-lg-0">
-              <ul className="navbar-nav mr-auto mt-2 mt-lg-0 d-flex">
-                <li className="mr-sm-2">
-                  <input
-                    type="text"
-                    className="form-control mr-sm-2"
-                    placeholder="Search"
-                    aria-label="Search"
-                    onChange={this.handleSearchInputChange}
-                  />
-                </li>
-                <li>
-                  <button
-                    className="btn btn-outline-success ml-2"
-                    type="submit"
-                  >
-                    Search
-                  </button>
-                </li>
-              </ul>
-            </form>
-          </div>
-
-          <div className="float-right mt-2">
-            <Login />
-          </div>
-        </div>
       </nav>
     );
   }

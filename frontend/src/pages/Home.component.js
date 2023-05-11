@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PostList from "../components/postlist.component";
+import AddPost from "../components/addpost.component";
 import { getAllPosts, getTagPosts } from "../api-services/postService";
+
 import "../global.css";
 export default class Home extends Component {
   constructor(props) {
@@ -33,6 +35,7 @@ export default class Home extends Component {
     return (
       <div className="parent-div">
         <PostList posts={this.state.posts} />
+        <AddPost/>
       </div>
     );
   }

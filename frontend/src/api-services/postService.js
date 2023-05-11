@@ -37,7 +37,6 @@ const getUserPosts = (user_id, setData) =>{
     console.log(user_id, "get posts")
     const reqUrl = URLS.baseUrl + URLS.postViewUser + '/' + user_id
     axios.get(reqUrl)
-
     .then(response =>{
         console.log("get data.", response.data)
         setData(response.data)

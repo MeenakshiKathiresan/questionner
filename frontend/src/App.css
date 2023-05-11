@@ -35,27 +35,29 @@
 .Post-Box {
 
   border-radius: 15px;
-  border: 1px solid rgb(219, 219, 219);
-
+  border: 1px solid rgb(243, 235, 212);
+  background-color: #f8f5e7;
+  box-shadow: 0 2px 5px rgba(0, 0, 0.1, 0.2);
 }
 
 .text-box{
-  background-color: #ececec;
-  border-radius: 5px;
-  padding: 5px;
+  background-color: #f8f4e6;
+  border: 1px solid rgb(216, 216, 215);
+  border-radius: 15px;
+  padding: 15px;
   margin: 5px;
-
 }
 
 .right-corner{
   float:right;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.left-space-for-children *{
+  margin-left: 8px;
+}
+
+.add-button{
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
 }
