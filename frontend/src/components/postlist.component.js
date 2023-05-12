@@ -21,7 +21,7 @@ export default class PostList extends Component {
   postList() {
     return this.props.posts.map(post => {
         return <Link to={ {pathname:`/detail/${post._id}`}} style={{ textDecoration: 'none', color:'black' }}>
-         <br /> <Post post = {post} onDelete = {this.onDelete}></Post>
+         <Post post = {post} onDelete = {this.onDelete}></Post> <br /> 
           </Link>
     })
   }

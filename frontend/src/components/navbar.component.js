@@ -11,12 +11,20 @@ export default class Navbar extends Component {
       searchInputValue: "",
     };
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
+    this.search = this.search.bind(this)
   }
 
   handleSearchInputChange = (event) => {
     const value = event.target.value;
     this.setState({ searchInputValue: value });
     console.log(value, "updated");
+    this.props.setSearchWord(value);
+  };
+
+  search = (event) => {
+    const value = event.target.value;
+    this.setState({ searchInputValue: value });
+    console.log(value, "search");
     this.props.setSearchWord(value);
   };
 
@@ -39,7 +47,7 @@ export default class Navbar extends Component {
                 aria-label="Search"
                 onChange={this.handleSearchInputChange}
               />
-              <button className="btn btn-outline-success" type="submit">
+              <button className="btn btn-outline-success" type="submit" onClick={this.search}>
                 Search
               </button>
             </div>

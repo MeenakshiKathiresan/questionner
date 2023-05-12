@@ -4,6 +4,7 @@ import { getUser } from "../api-services/profileService";
 import { deletePost } from "../api-services/postService";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BiCommentDetail } from "react-icons/bi";
+import {BsFillPersonFill} from "react-icons/bs";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import Tags from "./tags.component";
 
@@ -53,7 +54,7 @@ export default class Post extends Component {
           <h5>{this.state.post.heading}</h5>
         </div>
         <div className="d-flex flex-row">
-          {this.state.post.user ? (
+          {this.state.post.user && this.state.post.user.dp!=-""? (
             <img
               className="rounded-circle shadow-1-strong me-3 mt-1"
               src={this.state.post.user.dp}
@@ -62,7 +63,7 @@ export default class Post extends Component {
               height="35"
             />
           ) : (
-            ""
+            <BsFillPersonFill/>
           )}
 
           <div>
