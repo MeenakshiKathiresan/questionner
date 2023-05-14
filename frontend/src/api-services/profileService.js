@@ -4,25 +4,23 @@ import axios from "axios";
 let user = null;
 
 const login = () => {
-    window.open("http://localhost:5000/auth/google", "_self");
+  window.open("http://localhost:5000/auth/google", "_self");
 };
 
 const logout = () => {
-    const targetUrl = URLS.baseUrl + URLS.logOut;
+  const targetUrl = URLS.baseUrl + URLS.logOut;
 
- 
-        try {
-          window.open(targetUrl, "_self");
-          
-        } catch (error) {
-          console.log(error);
-        }
-    user = null
+  try {
+    window.open(targetUrl, "_self");
+  } catch (error) {
+    console.log(error);
+  }
+  user = null;
 };
 
 const getUser = async (setUser) => {
   if (user) {
-    setUser(user)
+    setUser(user);
   } else {
     const targetUrl = URLS.baseUrl + URLS.loginSuccess;
 
@@ -31,12 +29,21 @@ const getUser = async (setUser) => {
         withCredentials: true,
       })
       .then((response) => {
-         user = response.data.user ;
-         
-        setUser(user)
-
+        user = response.data.user;
+        setUser(user);
       });
   }
 };
 
-export {login, logout, getUser}
+const getUserStats = async (user, setStats) => {
+  const reqUrl = URLS.baseUrl + URLS.userStats +`?user=${user._id}`;
+
+  await axios
+    .get(reqUrl)
+    .then((response) => {
+      const stats = response.data;
+      setStats(stats);
+    });
+};
+
+export { login, logout, getUser, getUserStats };

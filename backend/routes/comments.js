@@ -19,14 +19,12 @@ router.route("/add/:id").post((req, res) => {
   newComment
     .save()
     .then(() => {
-
       Comment.findById(newComment._id)
         .populate("user")
         .then((comment) => {
           res.json(comment);
         })
         .catch((err) => res.status(400).json("Error: " + err));
-
     })
     .catch((err) => res.status(400).json("Error: " + err));
 });
@@ -40,31 +38,56 @@ router.route("/:id").get(async (req, res) => {
     .catch((err) => res.status(400).json("Error" + err));
 });
 
-
 router.route("/upvote/:id").put(async (req, res) => {
-  Comment.findByIdAndUpdate(req.params.id,
-    
-    { $pull: { downvotes: req.body.user },
-      $addToSet: {upvotes: req.body.user}
+  try {
+    const comment = await Comment.findById(req.params.id);
+
+    if (!comment) {
+      return res.json("Comment not found");
     }
-    )
-    .then(() => {
-      res.json("upvoted");
-    })
-    .catch((err) => res.status(400).json("Error" + err));
+
+    const isUpvoted = comment.upvotes.includes(req.body.user);
+    if (isUpvoted) {
+      comment.upvotes = comment.upvotes.filter(
+        (upvote) => upvote != req.body.user
+      );
+    } else {
+      comment.upvotes.push(req.body.user);
+      comment.downvotes = comment.downvotes.filter(
+        (downvote) => downvote != req.body.user
+      );
+    }
+    await comment.save();
+    res.json("upvoted!");
+  } catch (err) {
+    res.status(400).json("Error: " + err);
+  }
 });
 
 router.route("/downvote/:id").put(async (req, res) => {
-  Comment.findByIdAndUpdate(req.params.id,
-    {
-      $addToSet: {downvotes: req.body.user},
-      $pull: { upvotes: req.body.user }
+  try {
+    const comment = await Comment.findById(req.params.id);
+
+    if (!comment) {
+      return res.json("Comment not found");
     }
-    )
-    .then(() => {
-      res.json("downvoted");
-    })
-    .catch((err) => res.status(400).json("Error" + err));
+
+    const isDownvoted = comment.downvotes.includes(req.body.user);
+    if (isDownvoted) {
+      comment.downvotes = comment.downvotes.filter(
+        (downvote) => downvote != req.body.user
+      );
+    } else {
+      comment.downvotes.push(req.body.user);
+      comment.upvotes = comment.upvotes.filter(
+        (upvote) => upvote != req.body.user
+      );
+    }
+    await comment.save();
+    res.json("downvoted!");
+  } catch (err) {
+    res.status(400).json("Error: " + err);
+  }
 });
 
 router.route("/:id").delete((req, res) => {
