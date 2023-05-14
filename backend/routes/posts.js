@@ -95,7 +95,7 @@ router.route("/user/:id").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.route("/update/:id").post((req, res) => {
+router.route("/update/:id").put((req, res) => {
   Post.findById(req.params.id)
     .then((post) => {
       post.heading = req.body.heading;

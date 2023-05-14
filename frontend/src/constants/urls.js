@@ -11,6 +11,7 @@ const URLS = {
     postAdd: "/post/add",
     postViewAll: "/post",
     postViewUser: "/post/user",
+    postEdit: "/post/update",
 
     //comments
     comments: "/comments",

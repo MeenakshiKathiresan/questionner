@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { convertDate, generateCreatedAtText } from "../Utils/utils";
-import {
-  upVoteComment,
-  downVoteComment,
-} from "../api-services/postService";
+import { upVoteComment, downVoteComment } from "../api-services/postService";
 import {
   AiFillEdit,
   AiFillDelete,
@@ -18,12 +15,11 @@ export default class Comments extends Component {
     this.props = props;
     this.deleteCommentPost = this.deleteCommentPost.bind(this);
     this.upVoteCommentPost = this.upVoteCommentPost.bind(this);
-    this.getCurrentVote = this.getCurrentVote.bind(this)
-    this.state = {comments: props.comments}
-    
+    this.getCurrentVote = this.getCurrentVote.bind(this);
+    this.state = { comments: props.comments };
   }
 
-  componentDidUpdate(prevProps){
+  componentDidUpdate(prevProps) {
     if (prevProps.comments !== this.props.comments) {
       this.setState({
         comments: this.props.comments,
@@ -34,25 +30,50 @@ export default class Comments extends Component {
   editComment() {}
 
   upVoteCommentPost(comment, user) {
-    // this.setState({
-
-    // })
+    this.setState({
+      comments: this.state.comments.map((com) => {
+        if (comment._id === com._id) {
+          if (!com.upvotes.includes(user._id)) {
+            com.upvotes.push(user._id);
+          }
+          if (com.downvotes.includes(user._id)) {
+            com.downvotes = com.downvotes.filter((vote) => vote !== user._id);
+          }
+        }
+        return com; // Return the modified comment object
+      }),
+    });
+    
     upVoteComment(comment, user);
   }
 
   downVoteCommentPost(comment, user) {
+
+    this.setState({
+      comments: this.state.comments.map((com) => {
+        if (comment._id === com._id) {
+          if (!com.downvotes.includes(user._id)) {
+            com.downvotes.push(user._id);
+          }
+          if (com.upvotes.includes(user._id)) {
+            com.upvotes = com.upvotes.filter((vote) => vote !== user._id);
+          }
+        }
+        return com; // Return the modified comment object
+      }),
+    });
+
     downVoteComment(comment, user);
   }
 
-  getCurrentVote(comment){
-    if (comment.upvotes && comment.downvotes){
-
-      return comment.upvotes.length - comment.downvotes.length 
+  getCurrentVote(comment) {
+    if (comment.upvotes && comment.downvotes) {
+      return comment.upvotes.length - comment.downvotes.length;
     }
   }
 
   deleteCommentPost(comment) {
-    this.props.onDeleteComment(comment)
+    this.props.onDeleteComment(comment);
   }
 
   render() {
@@ -65,7 +86,9 @@ export default class Comments extends Component {
                 <br />
                 <div
                   className="btn"
-                  onClick={(e) => this.upVoteCommentPost(comment, this.props.user)}
+                  onClick={(e) =>
+                    this.upVoteCommentPost(comment, this.props.user)
+                  }
                 >
                   <AiFillCaretUp size={30} color="grey" />
                 </div>
@@ -73,7 +96,9 @@ export default class Comments extends Component {
                 &nbsp; &nbsp; {this.getCurrentVote(comment)}
                 <div
                   className="btn"
-                  onClick={(e) => this.downVoteCommentPost(comment, this.props.user)}
+                  onClick={(e) =>
+                    this.downVoteCommentPost(comment, this.props.user)
+                  }
                 >
                   <AiFillCaretDown size={30} color="grey" />
                 </div>

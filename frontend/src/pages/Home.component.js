@@ -40,7 +40,7 @@ export default class Home extends Component {
           <h4>Latest</h4>
           <div className=" Carousel">
             <div className="Carousel-Content">
-              <CardCarousel posts={this.state.posts} />
+              <CardCarousel posts={this.state.posts.slice(0,6)} />
             </div>
           </div>
           </div>

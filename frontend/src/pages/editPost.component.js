@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "../global.css";
+import "../global.css"
 
 import { login, getUser } from "../api-services/profileService";
+import { getPost, editPost } from "../api-services/postService";
 import Tags from "../components/tags.component";
 
-export default class CreatePost extends Component {
+
+export default class EditPost extends Component {
   constructor(props) {
     super(props);
 
@@ -14,20 +16,34 @@ export default class CreatePost extends Component {
     this.OnSubmit = this.OnSubmit.bind(this);
     this.OnTagsEntry = this.OnTagsEntry.bind(this);
 
+
     this.state = {
+        _id:"",
       heading: "",
       content: "",
       tags: [],
-      user: "",
+      user:"",
     };
+    const link = window.location.href;
+    const _id = link.slice(link.lastIndexOf("/") + 1)
+    
+    getPost(_id, (post) => {
+        this.setState({
+            heading: post.heading, 
+            content: post.content,
+            tags: post.tags,
+            _id: _id
+        })
+    })
   }
 
   componentDidMount() {
+    
     getUser((userData) => {
-      if (userData == null) {
-        login();
-      } else {
-        this.setState({ user: userData._id });
+      if (userData == null){
+        login()
+      }else{
+        this.setState({user:userData._id});
       }
     });
   }
@@ -49,26 +65,22 @@ export default class CreatePost extends Component {
       tags: e.target.value.split(","),
     });
   }
-  
 
   OnSubmit(e) {
     // prevent default behavior of a submit button
     e.preventDefault();
+    
 
     const post = {
+      _id: this.state._id,
       heading: this.state.heading,
       content: this.state.content,
       tags: this.state.tags,
-      user: this.state.user,
+      user: this.state.user
     };
 
-    console.log(post);
-
-    axios
-      .post("http://localhost:5000/post/add", post)
-      .then((res) => console.log(res.data));
-
-    window.location.href = "/";
+    editPost(post);
+    window.location.href = "/"
   }
 
   render() {
@@ -100,6 +112,7 @@ export default class CreatePost extends Component {
                 className="form-control"
                 id="exampleFormControlTextarea1"
                 rows="6"
+                value={this.state.content}
                 onChange={this.OnContentEntry}
               ></textarea>
             </div>
@@ -109,6 +122,8 @@ export default class CreatePost extends Component {
               <label> Tags: (comma separated) </label>
               <input
                 className="form-control"
+                value={this.state.tags}
+                selected={this.state.tags}
                 onChange={this.OnTagsEntry}
               />
             </div>

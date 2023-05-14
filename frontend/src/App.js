@@ -5,7 +5,7 @@ import React, { Component, useState } from "react";
 
 import Navbar from "./components/navbar.component";
 import Home from "./pages/Home.component";
-import EditPost from "./components/editpost.component";
+import EditPost from "./pages/editPost.component";
 import ViewPost from "./pages/PostPage.component";
 import CreatePost from "./pages/createpost.component";
 import Login from "./components/login.component";

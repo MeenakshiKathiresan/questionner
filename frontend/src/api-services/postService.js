@@ -103,5 +103,20 @@ const downVoteComment = async(comment, user) => {
     .then((res) => console.log(res))
 }
 
+const addPost = async(post) =>{
+    const reqUrl = URLS.baseUrl + URLS.addPost
+    await axios
+    .post(reqUrl, post)
+    .then((res) => console.log(res.data));
 
-export {getPost, getAllPosts, getUserPosts, getTagPosts, getComments, addComment, deleteComment, deletePost, upVoteComment, downVoteComment}
+}
+
+const editPost = async(post) =>{
+    const reqUrl = URLS.baseUrl + URLS.postEdit + '/' +post._id
+    await axios
+    .put(reqUrl, post)
+    .then((res) => console.log(res.data));
+
+}
+
+export {getPost, getAllPosts, getUserPosts, getTagPosts, getComments, addComment, deleteComment, deletePost, upVoteComment, downVoteComment, addPost, editPost}

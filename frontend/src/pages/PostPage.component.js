@@ -44,6 +44,7 @@ export default class ViewPost extends Component {
     this.setState({
       comment: e.target.value,
     });
+    
   }
 
   onComment = () => {

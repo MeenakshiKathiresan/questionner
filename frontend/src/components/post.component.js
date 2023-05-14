@@ -7,6 +7,7 @@ import { BiCommentDetail } from "react-icons/bi";
 import {BsFillPersonFill} from "react-icons/bs";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import Tags from "./tags.component";
+import { Link } from "react-router-dom";
 
 import "../App.css";
 
@@ -32,7 +33,9 @@ export default class Post extends Component {
               <div>
                 <div className="d-flex align-items-center">
                   <div className="btn  p-1">
+                    <Link to ={"/edit/"+this.state.post._id}>
                     <AiFillEdit color="orange" />
+                    </Link>
                   </div>
                   <div
                     className="btn p-1"
