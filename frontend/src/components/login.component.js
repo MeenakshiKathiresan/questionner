@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { Component } from "react";
 import { getUser, login, logout } from "../api-services/profileService";
 import { Link } from "react-router-dom";

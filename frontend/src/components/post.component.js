@@ -58,6 +58,10 @@ export default class Post extends Component {
             <img
               className="rounded-circle shadow-1-strong me-3 mt-1"
               src={this.state.post.user.dp}
+              onError={(e) => {
+                e.target.onerror = null; // Reset the event handler to prevent potential infinite loop
+               console.log("image error1!!")
+              }}
               alt=""
               width="35"
               height="35"

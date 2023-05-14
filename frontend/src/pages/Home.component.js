@@ -34,10 +34,10 @@ export default class Home extends Component {
     return (
       <div className="parent-div">
         <br />
-        
+
         {this.state.tag ==""&& this.state.searchWord == ""? (
           <div>
-          <h4>Trending</h4>
+          <h4>Latest</h4>
           <div className=" Carousel">
             <div className="Carousel-Content">
               <CardCarousel posts={this.state.posts} />
