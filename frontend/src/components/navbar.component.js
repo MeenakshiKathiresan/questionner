@@ -33,9 +33,11 @@ export default class Navbar extends Component {
       <nav className="navbar-dark navbar-expand-md bg-dark sticky-top">
         <div className="parent-div d-flex justify-content-between p-1">
           <div className="mt-2">
-            <Link className="navbar-brand" to="/">
+            <Link className="navbar-brand" to="/" onClick={ () => {this.props.setSearchWord("")}}>
               <h5>Questionner</h5>
+              
             </Link>
+            
           </div>
        
           <form className="form-inline">

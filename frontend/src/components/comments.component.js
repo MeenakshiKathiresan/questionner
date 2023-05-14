@@ -16,18 +16,46 @@ export default class Comments extends Component {
     this.deleteCommentPost = this.deleteCommentPost.bind(this);
     this.upVoteCommentPost = this.upVoteCommentPost.bind(this);
     this.getCurrentVote = this.getCurrentVote.bind(this);
-    this.state = { comments: props.comments };
+    this.state = {
+      comments: props.comments.map((comment) => ({
+        ...comment,
+        color: "grey",
+      })),
+    };
+
+    this.setVoteColor = this.setVoteColor.bind(this);
+    this.setVoteColor();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.comments !== this.props.comments) {
       this.setState({
-        comments: this.props.comments,
+        comments: this.props.comments.map((comment) => ({
+          ...comment,
+          color: "grey",
+        })),
       });
+
+      this.setVoteColor();
     }
   }
 
   editComment() {}
+
+  setVoteColor() {
+    const { user } = this.props;
+    this.setState((prevState) => ({
+      comments: prevState.comments.map((comment) => {
+        comment.color = "grey";
+        if (comment.upvotes.includes(user._id)) {
+          comment.color = "green";
+        } else if (comment.downvotes.includes(user._id)) {
+          comment.color = "red";
+        }
+        return comment;
+      }),
+    }));
+  }
 
   upVoteCommentPost(comment, user) {
     this.setState({
@@ -35,6 +63,10 @@ export default class Comments extends Component {
         if (comment._id === com._id) {
           if (!com.upvotes.includes(user._id)) {
             com.upvotes.push(user._id);
+            com.color = "green"
+          }else{
+            com.upvotes = com.upvotes.filter((vote) => vote!== user._id)
+            com.color = "grey"
           }
           if (com.downvotes.includes(user._id)) {
             com.downvotes = com.downvotes.filter((vote) => vote !== user._id);
@@ -43,17 +75,19 @@ export default class Comments extends Component {
         return com; // Return the modified comment object
       }),
     });
-    
     upVoteComment(comment, user);
   }
 
   downVoteCommentPost(comment, user) {
-
     this.setState({
       comments: this.state.comments.map((com) => {
         if (comment._id === com._id) {
           if (!com.downvotes.includes(user._id)) {
             com.downvotes.push(user._id);
+            com.color = "red";
+          }else{
+            com.downvotes = com.downvotes.filter((vote) => vote!== user._id)
+            com.color = "grey"
           }
           if (com.upvotes.includes(user._id)) {
             com.upvotes = com.upvotes.filter((vote) => vote !== user._id);
@@ -62,7 +96,6 @@ export default class Comments extends Component {
         return com; // Return the modified comment object
       }),
     });
-
     downVoteComment(comment, user);
   }
 
@@ -90,17 +123,17 @@ export default class Comments extends Component {
                     this.upVoteCommentPost(comment, this.props.user)
                   }
                 >
-                  <AiFillCaretUp size={30} color="grey" />
+                  <AiFillCaretUp size={30} color={ comment.color === "green"? comment.color : "grey"} />
                 </div>
                 <br />
-                &nbsp; &nbsp; {this.getCurrentVote(comment)}
+                &nbsp; &nbsp;&nbsp; {this.getCurrentVote(comment)}
                 <div
                   className="btn"
                   onClick={(e) =>
                     this.downVoteCommentPost(comment, this.props.user)
                   }
                 >
-                  <AiFillCaretDown size={30} color="grey" />
+                  <AiFillCaretDown size={30} color={comment.color === "red"? comment.color : "grey"} />
                 </div>
               </div>
               {comment.user ? (
@@ -127,9 +160,9 @@ export default class Comments extends Component {
                     <div className="right-corner">
                       {comment.user._id == this.props.user._id && (
                         <div className="d-flex ">
-                          <div className="btn">
+                          {/* <div className="btn">
                             <AiFillEdit color="orange" />
-                          </div>
+                          </div> */}
                           <div
                             className="btn"
                             onClick={(e) => this.deleteCommentPost(comment)}
