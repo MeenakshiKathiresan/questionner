@@ -35,8 +35,10 @@ const getUser = async (setUser) => {
   }
 };
 
+
+
 const getUserStats = async (user, setStats) => {
-  const reqUrl = URLS.baseUrl + URLS.userStats +`?user=${user._id}`;
+  const reqUrl = URLS.baseUrl + URLS.userStats +`?user=${user}`;
 
   await axios
     .get(reqUrl)
@@ -46,4 +48,12 @@ const getUserStats = async (user, setStats) => {
     });
 };
 
-export { login, logout, getUser, getUserStats };
+const getUserWithId = async ( id ,setUserData) =>{
+  const reqUrl = URLS.baseUrl + URLS.users + '/'+id
+  await axios.get(reqUrl).then((response) =>{
+    const user = response.data;
+    setUserData(user);
+  })
+}
+
+export { login, logout, getUser, getUserStats, getUserWithId };

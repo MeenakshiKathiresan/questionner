@@ -8,6 +8,7 @@ import {
   AiFillCaretUp,
 } from "react-icons/ai";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import { Link } from "react-router-dom";
 
 export default class Comments extends Component {
   constructor(props) {
@@ -63,10 +64,10 @@ export default class Comments extends Component {
         if (comment._id === com._id) {
           if (!com.upvotes.includes(user._id)) {
             com.upvotes.push(user._id);
-            com.color = "green"
-          }else{
-            com.upvotes = com.upvotes.filter((vote) => vote!== user._id)
-            com.color = "grey"
+            com.color = "green";
+          } else {
+            com.upvotes = com.upvotes.filter((vote) => vote !== user._id);
+            com.color = "grey";
           }
           if (com.downvotes.includes(user._id)) {
             com.downvotes = com.downvotes.filter((vote) => vote !== user._id);
@@ -85,9 +86,9 @@ export default class Comments extends Component {
           if (!com.downvotes.includes(user._id)) {
             com.downvotes.push(user._id);
             com.color = "red";
-          }else{
-            com.downvotes = com.downvotes.filter((vote) => vote!== user._id)
-            com.color = "grey"
+          } else {
+            com.downvotes = com.downvotes.filter((vote) => vote !== user._id);
+            com.color = "grey";
           }
           if (com.upvotes.includes(user._id)) {
             com.upvotes = com.upvotes.filter((vote) => vote !== user._id);
@@ -123,7 +124,10 @@ export default class Comments extends Component {
                     this.upVoteCommentPost(comment, this.props.user)
                   }
                 >
-                  <AiFillCaretUp size={30} color={ comment.color === "green"? comment.color : "grey"} />
+                  <AiFillCaretUp
+                    size={30}
+                    color={comment.color === "green" ? comment.color : "grey"}
+                  />
                 </div>
                 <br />
                 &nbsp; &nbsp;&nbsp; {this.getCurrentVote(comment)}
@@ -133,7 +137,10 @@ export default class Comments extends Component {
                     this.downVoteCommentPost(comment, this.props.user)
                   }
                 >
-                  <AiFillCaretDown size={30} color={comment.color === "red"? comment.color : "grey"} />
+                  <AiFillCaretDown
+                    size={30}
+                    color={comment.color === "red" ? comment.color : "grey"}
+                  />
                 </div>
               </div>
               {comment.user ? (
@@ -148,7 +155,14 @@ export default class Comments extends Component {
                         height="35"
                       />
                       <div>
-                        <b>{comment.user.username}</b>
+                        <b>
+                          <Link
+                            className="link"
+                            to={`/profile/${comment.user._id}`}
+                          >
+                            {comment.user.username}
+                          </Link>
+                        </b>
                         <p className="small">
                           {comment.createdAt
                             ? convertDate(comment.createdAt)

@@ -20,6 +20,7 @@ const URLS = {
     commentDownvote: "/comments/downvote",
 
     //Users
+    users: "/users",
     userStats: "/users/stats"
     
 }

@@ -30,7 +30,7 @@ function App() {
         <Route path="/create" Component={CreatePost} />
         <Route path="/edit/:id" Component={EditPost} />
         <Route path="/detail/:id" Component={ViewPost} />
-        <Route path='/profile' Component={Profile}/>
+        <Route path='/profile/:id' Component={Profile}/>
       </Routes>
     </Router>
   );

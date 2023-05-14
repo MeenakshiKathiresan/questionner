@@ -50,4 +50,18 @@ router.route("/stats").get(async (req, res) => {
   
 });
 
+router.route("/:id").get((req, res) => {
+    const userId= req.params.id;
+    User.findById(userId)
+    .then(user => {
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.json(user);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Internal server error", error: err });
+    });
+  });
+
 module.exports = router;

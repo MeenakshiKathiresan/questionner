@@ -22,7 +22,7 @@ export default class Login extends Component {
       <div className="left-space-for-children">
         {this.state.user ? (
           <div className="text-light">
-            <Link to="/profile">{this.state.user.username}</Link>
+            <Link to={`/profile/${this.state.user._id}`}>{this.state.user.username}</Link>
             <img src={this.state.user.dp} style={{ width: "30px" }}/>
             <button className="btn btn-outline-secondary p-1" onClick={logout}>Logout</button>
           </div>

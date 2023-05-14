@@ -1,6 +1,12 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
-import { getPost, getComments, addComment, deleteComment} from "../api-services/postService";
+import {
+  getPost,
+  getComments,
+  addComment,
+  deleteComment,
+} from "../api-services/postService";
 import { convertDate } from "../Utils/utils";
 import { getUser, login } from "../api-services/profileService";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
@@ -44,7 +50,6 @@ export default class ViewPost extends Component {
     this.setState({
       comment: e.target.value,
     });
-    
   }
 
   onComment = () => {
@@ -55,10 +60,10 @@ export default class ViewPost extends Component {
       upvotes: [],
       downvotes: [],
     };
-    addComment((comment) =>{
-      this.setState({ comments: [...this.state.comments, comment]})
+    addComment((comment) => {
+      this.setState({ comments: [...this.state.comments, comment] });
     }, comment);
-    
+
     comment.user = this.state.user;
     comment.post = this.state.post;
   };
@@ -68,11 +73,10 @@ export default class ViewPost extends Component {
     const updatedComments = this.state.comments.filter(
       (comment) => comment._id !== deletedComment._id
     );
-    console.log(deletedComment, updatedComments, "updated!")
+    console.log(deletedComment, updatedComments, "updated!");
     this.setState({
       comments: updatedComments,
     });
-    
   }
 
   render() {
@@ -90,7 +94,14 @@ export default class ViewPost extends Component {
           />
 
           <div>
-            {this.state.post.user ? this.state.post.user.username : ""}
+            {this.state.post.user ? (
+              <Link className="link" to={`/profile/${this.state.post.user._id}`}>
+                {this.state.post.user.username}
+              </Link>
+            ) : (
+              ""
+            )}
+
             <br />
             <div className="small">
               {convertDate(this.state.post.createdAt)}
@@ -102,7 +113,7 @@ export default class ViewPost extends Component {
 
         <ReactMarkdown>{this.state.post.content}</ReactMarkdown>
         <br />
-        
+
         <Tags tags={this.state.post.tags} />
         <br />
         <br />
